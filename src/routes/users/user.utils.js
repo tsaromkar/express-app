@@ -1,6 +1,6 @@
-const { refreshToken } = require('firebase-admin/app');
-const { COLLECTIONS, CONSTANTS } = require('./constants');
+const { COLLECTIONS, CONSTANTS } = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
+const db = require('../../utils/firebase');
 
 const generateAccessToken = (data) => {
     const payload = {
@@ -21,39 +21,19 @@ const generateTokens = (data) => {
     return [generateAccessToken(data), generateRefreshToken(data)];
 }
 
-const addUser = async (db, data, res) => {
+const addUser = async (data, res) => {
     try {
         const docRef = await db.collection(COLLECTIONS.Users).add({ ...data });
         let tokens = [];
         if (docRef.id) {
             tokens = generateTokens(data);
-            console.log("🚀 ~ addUser ~ tokens:", tokens)
         }
         res.
-            status(200).
+            status(201).
             json({ data: { id: docRef.id, accessToken: tokens[0], refreshToken: tokens[1] }, message: 'User added successfully' });
     } catch (e) {
         throw e;
     }
 }
 
-const addProducts = async (db, data, res) => {
-    try {
-        const batch = db.batch();
-
-        data.forEach((product) => {
-            const docRef = db.collection('products').doc(); // auto-generated ID
-            batch.set(docRef, product);
-        });
-
-        await batch.commit();
-
-        res.
-            status(200).
-            json({ message: `Product${data.length > 1 ? 's' : ''} added successfully` });
-    } catch (e) {
-        throw e;
-    }
-}
-
-module.exports = { addUser, addProducts, generateTokens }
+module.exports = { addUser, generateTokens }

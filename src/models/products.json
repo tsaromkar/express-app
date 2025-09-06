@@ -2,150 +2,175 @@
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/iphone13.webp?raw=true",
         "name": "IPhone 13",
+        "type": "mobile",
         "price": 15000,
         "stock": 65
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/iphone14.webp?raw=true",
         "name": "IPhone 14",
+        "type": "mobile",
         "price": 16000,
         "stock": 80
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/iphone15.webp?raw=true",
         "name": "IPhone 15",
+        "type": "mobile",
         "price": 17000,
         "stock": 90
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/oppoa57.webp?raw=true",
         "name": "Oppo A57",
+        "type": "mobile",
         "price": 12000,
         "stock": 70
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/pococ55.webp?raw=true",
         "name": "Poco C55",
+        "type": "mobile",
         "price": 11000,
         "stock": 60
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/realmec55.webp?raw=true",
         "name": "RealMe C55",
+        "type": "mobile",
         "price": 10000,
         "stock": 55
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/s20.webp?raw=true",
         "name": "Samsung S20",
+        "type": "mobile",
         "price": 25000,
         "stock": 40
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/s21.webp?raw=true",
         "name": "Samsung S21",
+        "type": "mobile",
         "price": 26000,
         "stock": 80
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/s22.webp?raw=true",
         "name": "Samsung S22",
+        "type": "mobile",
         "price": 27000,
         "stock": 40
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/vivoy22.webp?raw=true",
         "name": "Vivo Y22",
+        "type": "mobile",
         "price": 9000,
         "stock": 50
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/acer-aspire-7.webp?raw=true",
         "name": "Acer Aspire 7",
+        "type": "laptop",
         "price": 50000,
         "stock": 85
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/dell-latitude.webp?raw=true",
         "name": "Dell Latitude",
+        "type": "laptop",
         "price": 54000,
         "stock": 80
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/dellg15.webp?raw=true",
         "name": "Dell G15",
+        "type": "laptop",
         "price": 55000,
         "stock": 70
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/hppavilion.webp?raw=true",
         "name": "HP Pavillion",
+        "type": "laptop",
         "price": 56000,
         "stock": 65
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/hpstream.webp?raw=true",
         "name": "HP Stream",
+        "type": "laptop",
         "price": 57000,
         "stock": 78
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/lenovo-ideapad.webp?raw=true",
         "name": "Lenovo Ideapad",
+        "type": "laptop",
         "price": 51000,
         "stock": 75
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/lenovo-thinkpad.webp?raw=true",
         "name": "Lenovo ThinkPad",
+        "type": "laptop",
         "price": 52000,
         "stock": 80
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/macm1.webp?raw=true",
         "name": "Mac M1",
+        "type": "laptop",
         "price": 60000,
         "stock": 90
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/macm2.webp?raw=true",
         "name": "Mac M2",
+        "type": "laptop",
         "price": 61000,
         "stock": 110
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/laptops/macm3.webp?raw=true",
         "name": "Mac M3",
+        "type": "laptop",
         "price": 62000,
         "stock": 120
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/tvs/apple.webp?raw=true",
         "name": "Apple Tv",
+        "type": "tv",
         "price": 70000,
         "stock": 55
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/tvs/lenovo.webp?raw=true",
         "name": "Lenovo TV",
+        "type": "tv",
         "price": 60000,
         "stock": 50
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/tvs/lg.webp?raw=true",
         "name": "LG TV",
+        "type": "tv",
         "price": 75000,
         "stock": 40
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/tvs/philips.webp?raw=true",
         "name": "Phillips TV",
+        "type": "tv",
         "price": 62000,
         "stock": 25
     },
     {
         "image": "https://github.com/tsaromkar/Images/blob/main/tvs/samsung.webp?raw=true",
         "name": "Samsung TV",
+        "type": "tv",
         "price": 80000,
         "stock": 30
     }
