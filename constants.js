@@ -1,5 +1,6 @@
 const COLLECTIONS = {
-    "Users": "users"
+    "Users": "users",
+    "Products": "products"
 }
 
 const CONSTANTS = {

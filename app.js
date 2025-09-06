@@ -6,13 +6,13 @@ const port = 3000
 app.use(bodyParser.json());
 // Or, if you prefer Express's built-in parser:
 // app.use(express.json());
-
+const products = require('./products.json')
 
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./express-app-47864-firebase-adminsdk-fbsvc-ee906dec5f");
 const { COLLECTIONS } = require('./constants');
-const { addUser } = require('./utils');
+const { addUser, addProducts } = require('./utils');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -41,6 +41,16 @@ app.post('/login', async (req, res) => {
         } else {
             addUser(db, data, res);
         }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: error.message });
+    }
+})
+
+app.post('/addProducts', async (req, res) => {
+    const data = req.body;
+    try {
+        addProducts(db, data, res);
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: error.message });

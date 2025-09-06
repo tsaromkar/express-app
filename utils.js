@@ -37,4 +37,23 @@ const addUser = async (db, data, res) => {
     }
 }
 
-module.exports = { addUser, generateTokens }
+const addProducts = async (db, data, res) => {
+    try {
+        const batch = db.batch();
+
+        data.forEach((product) => {
+            const docRef = db.collection('products').doc(); // auto-generated ID
+            batch.set(docRef, product);
+        });
+
+        await batch.commit();
+
+        res.
+            status(200).
+            json({ message: `Product${data.length > 1 ? 's' : ''} added successfully` });
+    } catch (e) {
+        throw e;
+    }
+}
+
+module.exports = { addUser, addProducts, generateTokens }
