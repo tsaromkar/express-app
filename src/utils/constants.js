@@ -1,6 +1,7 @@
 const COLLECTIONS = {
     "Users": "users",
-    "Products": "products"
+    "Products": "products",
+    "ProductTypes": "product-types"
 }
 
 const CONSTANTS = {

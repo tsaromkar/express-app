@@ -1,19 +1,30 @@
 const express = require('express');
 const { addProducts } = require('./products.utils');
 const db = require('../../utils/firebase');
+const { COLLECTIONS } = require('../../utils/constants');
 const router = express.Router();
 
 // GET /get-products?pageSize=5&lastVisible=abc123
 router.get('/get-products', async (req, res) => {
     try {
-        const pageSize = parseInt(req.query.pageSize) || 10;
-        const lastVisible = req.query.lastVisible; // doc ID for pagination cursor
+        const { pageSize = 10, lastVisible = null, search = '', type = '' } = req.query;
 
-        let query = db.collection('products').orderBy('type').limit(pageSize);
+        let query = db.collection('products').orderBy('name').limit(Number(pageSize));
+
+        if (type) {
+            const types = type.split(','); // "laptop,mobile" -> ["laptop", "mobile"]
+            query = query.where('type', 'in', types);
+        }
+
+        if (search) {
+            query = query
+                .where('name', '>=', search)
+                .where('name', '<=', search + '\uf8ff');
+        }
 
         if (lastVisible) {
             // Get the document snapshot for the cursor
-            const lastDoc = await db.collection('products').doc(lastVisible).get();
+            const lastDoc = await db.collection(COLLECTIONS.Products).doc(lastVisible).get();
             if (lastDoc.exists) {
                 query = query.startAfter(lastDoc);
             }
@@ -34,14 +45,29 @@ router.get('/get-products', async (req, res) => {
         const newLastVisible = snapshot.docs[snapshot.docs.length - 1].id;
 
         res.json({
-            products,
-            lastVisible: newLastVisible
+            data: {
+                products,
+                lastVisible: newLastVisible
+            }
         });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
+
+router.get('/get-product-types', async (req, res) => {
+    try {
+        const snapshot = await db.collection(COLLECTIONS.ProductTypes).orderBy("type").get();
+        if (snapshot.docs.length) {
+            const types = snapshot.docs.map(doc => doc.data().type);
+            res.json({ data: { types } });
+        } else res.json({ message: "No product types found" });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: error.message });
+    }
+})
 
 router.post('/add-products', async (req, res) => {
     const data = req.body;

@@ -1,3 +1,4 @@
+const { COLLECTIONS } = require('../../utils/constants');
 const db = require('../../utils/firebase');
 
 const addProducts = async (data, res) => {
@@ -5,7 +6,7 @@ const addProducts = async (data, res) => {
         const batch = db.batch();
 
         data.forEach((product) => {
-            const docRef = db.collection('products').doc(); // auto-generated ID
+            const docRef = db.collection(COLLECTIONS.Products).doc(); // auto-generated ID
             batch.set(docRef, product);
         });
 
