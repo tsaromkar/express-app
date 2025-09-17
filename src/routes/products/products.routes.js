@@ -69,10 +69,44 @@ router.get('/get-product-types', async (req, res) => {
     }
 })
 
+router.get('/get-top-deals', async (req, res) => {
+    try {
+        let snapshot = await db.collection('top-deals').orderBy('name').get();
+
+        if (snapshot.empty) {
+            return res.json({ topDeals: [] });
+        }
+
+        const topDeals = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        res.json({
+            data: {
+                topDeals
+            }
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 router.post('/add-products', async (req, res) => {
     const data = req.body;
     try {
-        addProducts(data, res);
+        addProducts(data, res, COLLECTIONS.Products);
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: error.message });
+    }
+})
+
+router.post('/add-top-deals', async (req, res) => {
+    const data = req.body;
+    try {
+        addProducts(data, res, COLLECTIONS.TopDeals);
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: error.message });
