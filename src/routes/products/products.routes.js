@@ -113,4 +113,46 @@ router.post('/add-top-deals', async (req, res) => {
     }
 })
 
+router.get('/get-products-with-pages', async (req, res) => {
+    try {
+        const { pageSize = 10, page = 1, search = '', type = '' } = req.query;
+
+        const pageNumber = parseInt(page, 10);
+        const size = parseInt(pageSize, 10);
+
+        let query = db.collection('products');
+
+        if (type) {
+            const types = type.split(','); // "laptop,mobile" -> ["laptop", "mobile"]
+            query = query.where('type', 'in', types);
+        }
+
+        if (search) {
+            query = query
+                .where('name', '>=', search)
+                .where('name', '<=', search + '\uf8ff');
+        }
+
+        // OrderBy is required when using range queries
+        query = query.orderBy("name");
+
+        // Pagination
+        const snapshot = await query
+            .offset((pageNumber - 1) * size)
+            .limit(size)
+            .get();
+
+        const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        // For total pages
+        const totalSnapshot = await query.get();
+        const total = totalSnapshot.size;
+        const totalPages = Math.ceil(total / size);
+
+        res.json({ data: { products, total, totalPages, page: pageNumber } });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;
