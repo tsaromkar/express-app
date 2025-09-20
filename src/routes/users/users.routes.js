@@ -1,7 +1,7 @@
 const express = require('express');
 const { COLLECTIONS } = require('../../utils/constants');
 const { addUser, generateTokens } = require('./user.utils');
-const db = require('../../utils/firebase');
+const { db } = require('../../utils/firebase');
 
 const router = express.Router();
 

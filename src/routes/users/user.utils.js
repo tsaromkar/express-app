@@ -1,6 +1,6 @@
 const { COLLECTIONS, CONSTANTS } = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
-const db = require('../../utils/firebase');
+const { db } = require('../../utils/firebase');
 
 const generateAccessToken = (data) => {
     const payload = {

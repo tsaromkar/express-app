@@ -1,7 +1,8 @@
 const express = require('express');
 const { addProducts } = require('./products.utils');
-const db = require('../../utils/firebase');
+const { db } = require('../../utils/firebase');
 const { COLLECTIONS } = require('../../utils/constants');
+
 const router = express.Router();
 
 // GET /get-products?pageSize=5&lastVisible=abc123
