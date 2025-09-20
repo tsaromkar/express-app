@@ -33,7 +33,10 @@ router.get('/get-products', async (req, res) => {
         const snapshot = await query.get();
 
         if (snapshot.empty) {
-            return res.json({ products: [], lastVisible: null });
+            return res.json({
+                data: { products: [], lastVisible: null },
+                status: true
+            });
         }
 
         const products = snapshot.docs.map(doc => ({
@@ -48,11 +51,12 @@ router.get('/get-products', async (req, res) => {
             data: {
                 products,
                 lastVisible: newLastVisible
-            }
+            },
+            status: true
         });
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 });
 
@@ -61,11 +65,11 @@ router.get('/get-product-types', async (req, res) => {
         const snapshot = await db.collection(COLLECTIONS.ProductTypes).orderBy("type").get();
         if (snapshot.docs.length) {
             const types = snapshot.docs.map(doc => doc.data().type);
-            res.json({ data: { types } });
-        } else res.json({ message: "No product types found" });
+            res.json({ data: { types }, status: true });
+        } else res.json({ status: true, message: "No product types found" });
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 })
 
@@ -74,7 +78,7 @@ router.get('/get-top-deals', async (req, res) => {
         let snapshot = await db.collection('top-deals').orderBy('name').get();
 
         if (snapshot.empty) {
-            return res.json({ topDeals: [] });
+            return res.json({ status: true, topDeals: [] });
         }
 
         const topDeals = snapshot.docs.map(doc => ({
@@ -85,11 +89,12 @@ router.get('/get-top-deals', async (req, res) => {
         res.json({
             data: {
                 topDeals
-            }
+            },
+            status: true,
         });
 
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 });
 
@@ -99,7 +104,7 @@ router.post('/add-products', async (req, res) => {
         addProducts(data, res, COLLECTIONS.Products);
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 })
 
@@ -109,7 +114,7 @@ router.post('/add-top-deals', async (req, res) => {
         addProducts(data, res, COLLECTIONS.TopDeals);
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 })
 
@@ -149,9 +154,9 @@ router.get('/get-products-with-pages', async (req, res) => {
         const total = totalSnapshot.size;
         const totalPages = Math.ceil(total / size);
 
-        res.json({ data: { products, total, totalPages, page: pageNumber } });
+        res.json({ data: { products, total, totalPages, page: pageNumber }, status: true, });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 });
 

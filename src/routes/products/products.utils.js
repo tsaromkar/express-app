@@ -11,9 +11,7 @@ const addProducts = async (data, res, collection) => {
 
         await batch.commit();
 
-        res.
-            status(200).
-            json({ message: `Product${data.length > 1 ? 's' : ''} added successfully` });
+        res.json({ status: true, message: `Product${data.length > 1 ? 's' : ''} added successfully` });
     } catch (e) {
         throw e;
     }

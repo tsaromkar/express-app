@@ -28,9 +28,11 @@ const addUser = async (data, res) => {
         if (docRef.id) {
             tokens = generateTokens(data);
         }
-        res.
-            status(201).
-            json({ data: { id: docRef.id, accessToken: tokens[0], refreshToken: tokens[1] }, message: 'User added successfully' });
+        res.json({
+            data: { id: docRef.id, accessToken: tokens[0], refreshToken: tokens[1] },
+            status: true,
+            message: 'User added successfully'
+        });
     } catch (e) {
         throw e;
     }

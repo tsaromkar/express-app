@@ -13,9 +13,7 @@ router.post('/signup', async (req, res) => {
         if (snapshot.docs.length) {
             const user = snapshot.docs.find(doc => doc.data().email === data.email);
             if (user) {
-                res.
-                    status(400).
-                    json({ data: { id: user.id }, message: 'User already exist' });
+                res.json({ status: false, message: 'User already exist' });
             } else {
                 addUser(data, res);
             }
@@ -24,7 +22,7 @@ router.post('/signup', async (req, res) => {
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 })
 
@@ -40,22 +38,20 @@ router.post('/login', async (req, res) => {
                 if (user.id) {
                     tokens = generateTokens(user.data());
                 }
-                res.
-                    status(200).
-                    json({ data: { id: user.id, accessToken: tokens[0], refreshToken: tokens[1] }, message: 'Login Success' });
+                res.json({
+                    data: { id: user.id, accessToken: tokens[0], refreshToken: tokens[1] },
+                    status: true,
+                    message: 'Login Success'
+                });
             } else {
-                res.
-                    status(400).
-                    json({ message: "User doesn't exist" });
+                res.json({ status: false, message: "User doesn't exist" });
             }
         } else {
-            res.
-                status(400).
-                json({ message: "User doesn't exist" });
+            res.json({ status: false, message: "User doesn't exist" });
         }
     } catch (error) {
         console.log(error)
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: false, message: error.message });
     }
 })
 
