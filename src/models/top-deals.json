@@ -1,0 +1,44 @@
+[
+    {
+        "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/iphone15.webp?raw=true",
+        "name": "IPhone 15",
+        "type": "mobile",
+        "price": 17000,
+        "stock": 90
+    },
+    {
+        "image": "https://github.com/tsaromkar/Images/blob/main/mobiles/s22.webp?raw=true",
+        "name": "Samsung S22",
+        "type": "mobile",
+        "price": 27000,
+        "stock": 40
+    },
+    {
+        "image": "https://github.com/tsaromkar/Images/blob/main/laptops/dell-latitude.webp?raw=true",
+        "name": "Dell Latitude",
+        "type": "laptop",
+        "price": 54000,
+        "stock": 80
+    },
+    {
+        "image": "https://github.com/tsaromkar/Images/blob/main/laptops/macm3.webp?raw=true",
+        "name": "Mac M3",
+        "type": "laptop",
+        "price": 62000,
+        "stock": 120
+    },
+    {
+        "image": "https://github.com/tsaromkar/Images/blob/main/tvs/lg.webp?raw=true",
+        "name": "LG TV",
+        "type": "tv",
+        "price": 75000,
+        "stock": 40
+    },
+    {
+        "image": "https://github.com/tsaromkar/Images/blob/main/tvs/samsung.webp?raw=true",
+        "name": "Samsung TV",
+        "type": "tv",
+        "price": 80000,
+        "stock": 30
+    }
+]
