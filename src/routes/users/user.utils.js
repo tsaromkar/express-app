@@ -1,6 +1,5 @@
-const { COLLECTIONS, CONSTANTS } = require('../../utils/constants');
+const { CONSTANTS } = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
-const { db } = require('../../utils/firebase');
 
 const generateAccessToken = (data) => {
     const payload = {
@@ -21,21 +20,4 @@ const generateTokens = (data) => {
     return [generateAccessToken(data), generateRefreshToken(data)];
 }
 
-const addUser = async (data, res) => {
-    try {
-        const docRef = await db.collection(COLLECTIONS.Users).add({ ...data });
-        let tokens = [];
-        if (docRef.id) {
-            tokens = generateTokens(data);
-        }
-        res.json({
-            data: { id: docRef.id, accessToken: tokens[0], refreshToken: tokens[1] },
-            status: true,
-            message: 'User added successfully'
-        });
-    } catch (e) {
-        throw e;
-    }
-}
-
-module.exports = { addUser, generateTokens }
+module.exports = { generateTokens }

@@ -17,14 +17,21 @@ router.post('/get-notification', async (req, res) => {
             },
             token,
         };
-        console.log("🚀 ~ message:", message)
 
         const response = await messaging.send(message);
-        console.log("🚀 ~ response:", response)
-        res.send({ status: true, response });
+        res.status(200).send({
+            success: true,
+            data: { response },
+            message: "Notification"
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).send({ error: error.message });
+        res.status(500).send({
+            success: false,
+            data: null,
+            message: "Error sending notification",
+            error: error.message
+        });
     }
 });
 
