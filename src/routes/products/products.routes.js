@@ -2,6 +2,7 @@ const express = require('express');
 const { addProducts } = require('./products.utils');
 const { db } = require('../../utils/firebase');
 const { COLLECTIONS } = require('../../utils/constants');
+const { authenticateToken } = require('../users/user.utils');
 
 const router = express.Router();
 
@@ -159,7 +160,7 @@ router.post('/add-top-deals', async (req, res) => {
     }
 })
 
-router.get('/get-products-with-pages', async (req, res) => {
+router.get('/get-products-with-pages', authenticateToken, async (req, res) => {
     try {
         const { pageSize = 10, page = 1, search = '', type = '' } = req.query;
 
