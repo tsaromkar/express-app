@@ -3,9 +3,10 @@ const express = require('express')
 const usersRoutes = require('./src/routes/users/users.routes');
 const productsRoutes = require('./src/routes/products/products.routes');
 const notificationsRoutes = require('./src/routes/notifications/notifications.routes');
+const { ENV } = require('./src/utils/constants');
 
 const app = express();
-const port = 3000;
+const port = ENV.PORT;
 
 // Middleware to parse JSON request bodies
 // app.use(bodyParser.json());

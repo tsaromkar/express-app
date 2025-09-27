@@ -13,7 +13,7 @@ const authenticateAccessToken = (req, res, next) => {
         });
     }
 
-    jwt.verify(token, CONSTANTS.secretKey, (err) => {
+    jwt.verify(token, CONSTANTS.SECRET_KEY, (err) => {
         if (err) {
             return res.status(403).json({
                 success: false,
@@ -37,7 +37,7 @@ const authenticateRefreshToken = (req, res, next) => {
         });
     }
 
-    jwt.verify(token, CONSTANTS.secretKey, (err, user) => {
+    jwt.verify(token, CONSTANTS.SECRET_KEY, (err, user) => {
         if (err) {
             return res.status(403).json({
                 success: false,
@@ -55,14 +55,14 @@ const generateAccessToken = (data) => {
         name: data.name,
         email: data.email
     };
-    return jwt.sign(payload, CONSTANTS.secretKey, { expiresIn: '1h' });
+    return jwt.sign(payload, CONSTANTS.SECRET_KEY, { expiresIn: '1h' });
 }
 
 const generateRefreshToken = (data) => {
     const payload = {
         email: data.email
     };
-    return jwt.sign(payload, CONSTANTS.secretKey, { expiresIn: '7d' });
+    return jwt.sign(payload, CONSTANTS.SECRET_KEY, { expiresIn: '7d' });
 }
 
 const generateTokens = (data) => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const { COLLECTIONS } = require('../../utils/constants');
+const { COLLECTIONS, ENV } = require('../../utils/constants');
 const { authenticateRefreshToken, generateAccessToken, generateTokens } = require('./user.utils');
 const { db } = require('../../utils/firebase');
 const axios = require('axios');
@@ -102,7 +102,7 @@ router.post('/refresh', authenticateRefreshToken, async (req, res) => {
                 'Content-Type': 'application/json',
             }
         }
-        const response = await axios.post('http://localhost:3000/user-api/getUser',
+        const response = await axios.post(`${ENV.HOST}/user-api/getUser`,
             postData,
             options
         );
