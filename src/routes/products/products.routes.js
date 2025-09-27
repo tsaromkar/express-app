@@ -2,7 +2,7 @@ const express = require('express');
 const { addProducts } = require('./products.utils');
 const { db } = require('../../utils/firebase');
 const { COLLECTIONS } = require('../../utils/constants');
-const { authenticateToken } = require('../users/user.utils');
+const { authenticateAccessToken } = require('../users/user.utils');
 
 const router = express.Router();
 
@@ -85,7 +85,6 @@ router.get('/get-product-types', async (req, res) => {
             message: "No product types found"
         });
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             success: false,
             data: null,
@@ -135,7 +134,6 @@ router.post('/add-products', async (req, res) => {
     try {
         addProducts(data, res, COLLECTIONS.Products);
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             success: false,
             data: null,
@@ -150,7 +148,6 @@ router.post('/add-top-deals', async (req, res) => {
     try {
         addProducts(data, res, COLLECTIONS.TopDeals);
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             success: false,
             data: null,
@@ -160,7 +157,7 @@ router.post('/add-top-deals', async (req, res) => {
     }
 })
 
-router.get('/get-products-with-pages', authenticateToken, async (req, res) => {
+router.get('/get-products-with-pages', authenticateAccessToken, async (req, res) => {
     try {
         const { pageSize = 10, page = 1, search = '', type = '' } = req.query;
 

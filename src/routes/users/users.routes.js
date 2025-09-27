@@ -1,7 +1,8 @@
 const express = require('express');
 const { COLLECTIONS } = require('../../utils/constants');
-const { generateTokens } = require('./user.utils');
+const { authenticateRefreshToken, generateAccessToken, generateTokens } = require('./user.utils');
 const { db } = require('../../utils/firebase');
+const axios = require('axios');
 
 const router = express.Router();
 
@@ -83,7 +84,6 @@ router.post('/login', async (req, res) => {
             });
         }
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             success: false,
             data: null,
@@ -92,6 +92,73 @@ router.post('/login', async (req, res) => {
         });
     }
 })
+
+router.post('/refresh', authenticateRefreshToken, async (req, res) => {
+    const email = req.user.email;
+    try {
+        const postData = { email };
+        const options = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
+        const response = await axios.post('http://localhost:3000/user-api/getUser',
+            postData,
+            options
+        );
+        const { success } = response?.data || {};
+        if (success) {
+            const { data } = response.data;
+            const { user: {
+                name
+            } } = data;
+            const accessToken = generateAccessToken({
+                name,
+                email
+            })
+            res.status(200).json({
+                success: true,
+                data: { accessToken },
+                message: "AccessToken renewed successfully",
+            });
+        } else {
+            throw new Error("Failed to refresh access token");
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            data: null,
+            message: "Failed to refresh tokens",
+            error: error.message
+        });
+    }
+})
+
+router.post('/getUser', async (req, res) => {
+    const data = req.body;
+    try {
+        const snapshot = await db.collection(COLLECTIONS.Users).where("email", "==", data.email).get();
+        if (snapshot.empty) {
+            res.status(404).json({
+                success: false,
+                message: "User doesn't exist"
+            })
+        }
+        const user = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        res.status(200).json({
+            success: true,
+            data: { user: user[0] },
+            message: "User found successfully"
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            data: null,
+            message: "User found operation failed",
+            error: error.message
+        });
+    }
+});
 
 // Example route to add data
 // app.post('/addUser', async (req, res) => {
