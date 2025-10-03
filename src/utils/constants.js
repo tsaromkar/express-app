@@ -14,7 +14,7 @@ const CONSTANTS = {
 const ENV = {
     BASE_URL: process.env.BASE_URL,
     PORT: process.env.PORT,
-    HOST: `${process.env.BASE_URL} + ${process.env.PORT}`,
+    HOST: `${process.env.BASE_URL}:${process.env.PORT}`,
 }
 
 module.exports = { COLLECTIONS, CONSTANTS, ENV }

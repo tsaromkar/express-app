@@ -1,6 +1,6 @@
 const express = require('express');
 const { COLLECTIONS, ENV } = require('../../utils/constants');
-const { authenticateRefreshToken, generateAccessToken, generateTokens } = require('./user.utils');
+const { authenticateRefreshToken, generateAccessToken, generateTokens, authenticateAccessToken } = require('./user.utils');
 const { db } = require('../../utils/firebase');
 const axios = require('axios');
 
@@ -129,6 +129,22 @@ router.post('/refresh', authenticateRefreshToken, async (req, res) => {
             success: false,
             data: null,
             message: "Failed to refresh tokens",
+            error: error.message
+        });
+    }
+})
+
+router.post('/verify-tokens', [authenticateAccessToken, authenticateRefreshToken], async (req, res) => {
+    try {
+        res.status(200).json({
+            success: true,
+            message: "Tokens verified successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            data: null,
+            message: "Tokens expired, login again",
             error: error.message
         });
     }
