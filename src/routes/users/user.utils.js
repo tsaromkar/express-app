@@ -57,14 +57,14 @@ const generateAccessToken = (data) => {
         name: data.name,
         email: data.email
     };
-    return jwt.sign(payload, CONSTANTS.SECRET_KEY, { expiresIn: '2m' });
+    return jwt.sign(payload, CONSTANTS.SECRET_KEY, { expiresIn: '30m' });
 }
 
 const generateRefreshToken = (data) => {
     const payload = {
         email: data.email
     };
-    return jwt.sign(payload, CONSTANTS.SECRET_KEY, { expiresIn: '5m' });
+    return jwt.sign(payload, CONSTANTS.SECRET_KEY, { expiresIn: '1d' });
 }
 
 const generateTokens = (data) => {
